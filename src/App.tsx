@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
+import { useState } from "react";
 
-function App() {
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [token, setToken] = useState<string>("");
+
+  const handleLogin = (token: string) => {
+    setToken(token);
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setToken("");
+    setIsLoggedIn(false);
+  };
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <LoginPage onSuccess={handleLogin} />,
+    },
+    {
+      path: "/login",
+      element: <LoginPage onSuccess={handleLogin} />,
+    },
+    {
+      path: "/register",
+      element: <RegisterPage />,
+    },
+  ]);
+  const routerLoggedIn = createBrowserRouter([
+    {
+      path: "/",
+      element: <h3>Zaten oturum açılmış</h3>,
+    },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {!isLoggedIn ? (
+        <RouterProvider router={router} />
+      ) : (
+        <RouterProvider router={routerLoggedIn} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
