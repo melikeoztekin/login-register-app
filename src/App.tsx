@@ -35,7 +35,7 @@ const App = () => {
   const routerLoggedIn = createBrowserRouter([
     {
       path: "/",
-      element: <h3>Zaten oturum açılmış</h3>,
+      element: <h3>Giriş yapılmış</h3>,
     },
   ]);
 
