@@ -1,8 +1,15 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React, { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import { useState } from "react";
+import TodoApp from "./pages/TodoApp";
+import PasswordChangePage from "./pages/PasswordChangePage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -35,12 +42,17 @@ const App = () => {
   const routerLoggedIn = createBrowserRouter([
     {
       path: "/",
-      element: <h3>Giriş yapılmış</h3>,
+      element: <TodoApp onLogout={handleLogout} />,
+    },
+    {
+      path: "/password-change",
+      element: <PasswordChangePage token={token} onLogout={handleLogout} />,
     },
   ]);
 
   return (
     <div>
+      <ToastContainer />
       {!isLoggedIn ? (
         <RouterProvider router={router} />
       ) : (

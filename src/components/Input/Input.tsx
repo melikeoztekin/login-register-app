@@ -33,27 +33,29 @@ const Input: FC<InputProps> = (props) => {
   };
 
   return (
-    <Styled style={props.style}>
-      {props.icon ? (
-        <div className="icon">
-          <span className="material-symbols-outlined">{props.icon}</span>
-        </div>
-      ) : null}
-      <input
-        name={props.name}
-        onChange={handleChange}
-        type={calculateType()}
-        value={value}
-        placeholder={props.placeholder}
-      />
-      {props.type === "password" ? (
-        <button onClick={handleClickEye} className="eye">
-          <span className="material-symbols-outlined">
-            {isSecret ? "visibility" : "visibility_off"}
-          </span>
-        </button>
-      ) : null}
-    </Styled>
+    <>
+      <Styled style={props.style}>
+        {props.icon ? (
+          <div className="icon">
+            <span className="material-symbols-outlined">{props.icon}</span>
+          </div>
+        ) : null}
+        <input
+          name={props.name}
+          onChange={handleChange}
+          type={calculateType()}
+          value={value}
+          placeholder={props.placeholder}
+        />
+        {props.type === "password" ? (
+          <button onClick={handleClickEye} className="eye">
+            <span className="material-symbols-outlined">
+              {isSecret ? "visibility" : "visibility_off"}
+            </span>
+          </button>
+        ) : null}
+      </Styled>
+    </>
   );
 };
 

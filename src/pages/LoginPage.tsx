@@ -13,6 +13,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 
   const handleLogin: LoginFormProps["onLogin"] = (values) => {
     axios.post("http://localhost:80/auth/login", values).then(({ data }) => {
+      console.log(values);
       props.onSuccess?.(data.token);
       navigate("/");
     });

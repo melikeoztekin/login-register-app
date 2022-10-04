@@ -6,5 +6,6 @@ export type InputProps = {
   value?: string;
   name?: string;
   defaultValue?: string;
+
   onChange?: (e: React.ChangeEvent<HTMLInputElement>, v: string) => void;
 };
