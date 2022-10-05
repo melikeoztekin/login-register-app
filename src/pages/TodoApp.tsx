@@ -9,6 +9,7 @@ export type TodoAppProps = {
 const TodoApp: FC<TodoAppProps> = (props) => {
   const handleLogout = () => {
     props.onLogout?.();
+    toast.info("Logged out");
   };
 
   const navigate = useNavigate();

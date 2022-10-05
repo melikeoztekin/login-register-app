@@ -1,11 +1,7 @@
 import "./App.css";
 import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  useNavigate,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import TodoApp from "./pages/TodoApp";
@@ -52,7 +48,7 @@ const App = () => {
 
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
       {!isLoggedIn ? (
         <RouterProvider router={router} />
       ) : (

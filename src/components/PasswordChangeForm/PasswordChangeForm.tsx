@@ -1,5 +1,5 @@
-import React, { FC, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { FC, useState } from "react";
+import { toast } from "react-toastify";
 import Button from "../Button";
 import Card from "../Card";
 import Input from "../Input";
@@ -24,6 +24,27 @@ const PasswordChangeForm: FC<PasswordChangeFormProps> = (props) => {
   };
 
   const handleSubmit = () => {
+    if (
+      formValues.username === "" &&
+      formValues.oldPassword === "" &&
+      formValues.newPassword === "" &&
+      formValues.newPasswordConfirm === ""
+    ) {
+      toast.warning("Fill out the form completely.");
+      return;
+    } else if (formValues.username === "") {
+      toast.warning("Username cannot be blank.");
+      return;
+    } else if (formValues.oldPassword === "") {
+      toast.warning("Old password cannot be blank.");
+      return;
+    } else if (formValues.newPassword === "") {
+      toast.warning("New password cannot be blank.");
+      return;
+    } else if (formValues.newPasswordConfirm === "") {
+      toast.warning("Password confirm cannot be blank.");
+      return;
+    }
     props.onPasswordChange(formValues);
   };
 

@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
 import PasswordChangeForm from "../components/PasswordChangeForm";
 import { PasswordChangeFormProps } from "../components/PasswordChangeForm/PasswordChangeForm.types";
 
@@ -23,15 +22,15 @@ const PasswordChangePage: FC<PasswordChangePageProps> = (props) => {
     axios
       .post("http://localhost:80/auth/password-change", values, config)
       .then((response) => {
-        console.error(response);
         toast.success(response.data);
         props.onLogout();
         navigate("/login");
       })
       .catch((error) => {
-        console.error(error.response.data.issues[0].message);
+        error.response.status === 401
+          ? toast.error(error.response.data)
+          : toast.error(error.response.data.issues[0].message);
       });
-    console.log(values);
   };
 
   return <PasswordChangeForm onPasswordChange={handlePasswordChange} />;

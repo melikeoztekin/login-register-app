@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Button from "../Button";
 import Card from "../Card";
 import Checkbox from "../Checkbox";
@@ -25,10 +25,25 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   };
 
   const handleSubmit = () => {
+    if (
+      formValues.username === "" &&
+      formValues.password === "" &&
+      formValues.passwordConfirm === ""
+    ) {
+      toast.warning("Fill out the form completely.");
+      return;
+    } else if (formValues.username === "") {
+      toast.warning("Username cannot be blank.");
+      return;
+    } else if (formValues.password === "") {
+      toast.warning("Password cannot be blank.");
+      return;
+    } else if (formValues.passwordConfirm === "") {
+      toast.warning("Password confirm cannot be blank.");
+      return;
+    }
     props.onRegister?.(formValues);
   };
-
-  const navigate = useNavigate();
 
   return (
     <Styled>

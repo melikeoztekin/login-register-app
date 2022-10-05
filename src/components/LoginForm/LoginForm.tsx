@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Button from "../Button";
 import Card from "../Card";
 import Checkbox from "../Checkbox";
@@ -21,10 +21,18 @@ const LoginForm: FC<LoginFormProps> = (props) => {
   };
 
   const handleSubmit = () => {
+    if (formValues.username === "" && formValues.password === "") {
+      toast.warning("Fill out the form completely.");
+      return;
+    } else if (formValues.username === "") {
+      toast.warning("Username cannot be blank.");
+      return;
+    } else if (formValues.password === "") {
+      toast.warning("Password cannot be blank.");
+      return;
+    }
     props.onLogin?.(formValues);
   };
-
-  const navigate = useNavigate();
 
   return (
     <Styled>
