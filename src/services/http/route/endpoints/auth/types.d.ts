@@ -9,6 +9,13 @@ export type RegisterRequestPayload = {
   passwordConfirm: string;
 };
 
+export type RegisterResponseType = {
+  data: {
+    username: string;
+    token: string;
+  };
+};
+
 export type PasswordChangeRequestPayload = {
   username: string;
   oldPassword: string;

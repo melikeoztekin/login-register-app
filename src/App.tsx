@@ -6,29 +6,24 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import TodoApp from "./pages/TodoApp";
 import PasswordChangePage from "./pages/PasswordChangePage";
+import { useLoginContext } from "./contexts/LoginContext/LoginContext";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [token, setToken] = useState<string>("");
-
-  const handleLogin = (token: string) => {
-    setToken(token);
-    setIsLoggedIn(true);
-  };
+  const { isLoggedIn, logout } = useLoginContext();
 
   const handleLogout = () => {
-    setToken("");
-    setIsLoggedIn(false);
+    logout();
   };
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LoginPage onSuccess={handleLogin} />,
+      element: <LoginPage />,
     },
     {
       path: "/login",
-      element: <LoginPage onSuccess={handleLogin} />,
+      element: <LoginPage />,
     },
     {
       path: "/register",
@@ -38,7 +33,7 @@ const App = () => {
   const routerLoggedIn = createBrowserRouter([
     {
       path: "/",
-      element: <TodoApp onLogout={handleLogout} />,
+      element: <TodoApp />,
     },
     {
       path: "/password-change",
