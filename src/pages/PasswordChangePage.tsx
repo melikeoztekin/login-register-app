@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PasswordChangeForm from "../components/PasswordChangeForm";
 import { PasswordChangeFormProps } from "../components/PasswordChangeForm/PasswordChangeForm.types";
+import { auth } from "../services/http/route/endpoints/auth";
 
 export type PasswordChangePageProps = {
   token: string;
@@ -19,8 +20,8 @@ const PasswordChangePage: FC<PasswordChangePageProps> = (props) => {
   const handlePasswordChange: PasswordChangeFormProps["onPasswordChange"] = (
     values
   ) => {
-    axios
-      .post("http://localhost:80/auth/password-change", values, config)
+    auth
+      .passwordChange(values, config)
       .then((response) => {
         toast.success(response.data);
         props.onLogout();

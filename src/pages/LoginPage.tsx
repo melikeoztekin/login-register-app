@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoginForm from "../components/LoginForm";
 import { LoginFormProps } from "../components/LoginForm/LoginForm.types";
+import { auth } from "../services/http/route/endpoints/auth";
 
 export type LoginPageProps = {
   onSuccess: (token: string) => void;
@@ -13,8 +14,8 @@ const LoginPage: FC<LoginPageProps> = (props) => {
   const navigate = useNavigate();
 
   const handleLogin: LoginFormProps["onLogin"] = (values) => {
-    axios
-      .post("http://localhost:80/auth/login", values)
+    auth
+      .login(values)
       .then((response) => {
         toast.success(response.data);
         props.onSuccess?.(response.data.token);

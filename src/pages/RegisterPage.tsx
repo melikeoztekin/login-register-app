@@ -3,11 +3,12 @@ import React from "react";
 import { toast } from "react-toastify";
 import RegisterForm from "../components/RegisterForm";
 import { RegisterFormProps } from "../components/RegisterForm/RegisterForm.types";
+import { auth } from "../services/http/route/endpoints/auth";
 
 const RegisterPage = () => {
   const handleRegister: RegisterFormProps["onRegister"] = (values) => {
-    axios
-      .post("http://localhost:80/auth/register", values)
+    auth
+      .register(values)
       .then(() => {
         toast.success("Registration Successful");
       })
