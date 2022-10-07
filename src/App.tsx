@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import TodoApp from "./pages/TodoApp";
 import PasswordChangePage from "./pages/PasswordChangePage";
 import { useLoginContext } from "./contexts/LoginContext/LoginContext";
+import { TodoAppProvider } from "./contexts/TodoAppContext/TodoAppContext";
 
 const App = () => {
   const [token, setToken] = useState<string>("");
@@ -47,7 +48,9 @@ const App = () => {
       {!isLoggedIn ? (
         <RouterProvider router={router} />
       ) : (
-        <RouterProvider router={routerLoggedIn} />
+        <TodoAppProvider>
+          <RouterProvider router={routerLoggedIn} />
+        </TodoAppProvider>
       )}
     </div>
   );

@@ -3,8 +3,11 @@ import {
   FC,
   PropsWithChildren,
   useContext,
+  useEffect,
   useState,
 } from "react";
+import ReactDOM from "react-dom/client";
+import instance from "../../services/http/route/instance";
 import { ContextType, StateType } from "./types";
 
 const initialState: StateType = {
@@ -21,6 +24,33 @@ export const LoginContext = createContext<ContextType>({
 
 export const LoginProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, setState] = useState<StateType>(initialState);
+
+  useEffect(() => {
+    instance.interceptors.request.use((config) => {
+      const _config = { ...config };
+      _config.headers = {
+        ...config.headers,
+        authorization: "Bearer " + state.token,
+      };
+      return _config;
+    });
+    // instance.interceptors.response.use(
+    //   (response) => {
+    //     return response;
+    //   },
+    //   (error) => {
+    //     if ([500, 401, 403].includes(error.response.status)) {
+    //       setState((prev) => ({
+    //         ...prev,
+    //         isLoggedIn: false,
+    //         token: "",
+    //         username: "",
+    //       }));
+    //       console.log("bir hata oluştu logine yönlendirileceksiniz");
+    //     }
+    //   }
+    // );
+  }, [state.token]);
 
   const login = (token: string, username: string) => {
     setState({
